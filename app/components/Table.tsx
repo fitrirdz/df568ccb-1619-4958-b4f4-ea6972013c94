@@ -1,6 +1,6 @@
 import React from 'react';
-import ArrowIcon from '@/public/icons/up-arrow.png';
 import Image from 'next/image';
+import TableHeaderCol from './TableHeaderCol';
 
 const Table = () => {
   const dummyData = [
@@ -87,28 +87,9 @@ const Table = () => {
     <table className='flex-1 w-full border border-gray-300 border-b-0'>
       <thead>
         <tr className='border-b border-gray-300 text-gray-500 font-semibold'>
-          <td className='p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black flex items-center gap-2'>
-            First Name
-            <Image
-              src={ArrowIcon}
-              alt='arrow'
-              width={16}
-              height={24}
-              style={{ filter: 'grayscale(100%)' }}
-            />
-          </td>
-          <td className='p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black'>
-            Last Name
-          </td>
-          <td className='p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black'>
-            Position
-          </td>
-          <td className='p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black'>
-            Phone
-          </td>
-          <td className='p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black'>
-            Email
-          </td>
+          <TableHeaderCol title='First Name' />
+          <TableHeaderCol title='Last Name' />
+          <TableHeaderCol title='Position' />
         </tr>
       </thead>
       <tbody>
