@@ -1,8 +1,10 @@
+'use client';
 import Image from 'next/image';
 import Table from './components/Table';
 import PlusIcon from '@/public/icons/plus.png';
 import SaveIcon from '@/public/icons/tech.png';
 import UndoIcon from '@/public/icons/undo.png';
+import {EmployeeProvider} from './context/Employee';
 
 export default function Home() {
   return (
@@ -14,7 +16,7 @@ export default function Home() {
             alt='arrow'
             width={20}
             height={20}
-            style={{ filter: 'grayscale(10%)' }}
+            style={{filter: 'grayscale(10%)'}}
           />
         </button>
         <button>
@@ -23,7 +25,7 @@ export default function Home() {
             alt='arrow'
             width={20}
             height={20}
-            style={{ filter: 'grayscale(10%)' }}
+            style={{filter: 'grayscale(10%)'}}
           />
         </button>
         <button>
@@ -32,7 +34,7 @@ export default function Home() {
             alt='arrow'
             width={20}
             height={20}
-            style={{ filter: 'grayscale(10%)' }}
+            style={{filter: 'grayscale(10%)'}}
           />
         </button>
       </div>

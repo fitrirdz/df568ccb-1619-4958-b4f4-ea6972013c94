@@ -1,8 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import TableHeaderCol from './TableHeaderCol';
+import {useEmployee} from '../context/Employee';
 
 const Table = () => {
+  const {sorting} = useEmployee();
   const dummyData = [
     {
       firstName: 'Jack',
@@ -84,12 +86,14 @@ const Table = () => {
   ];
 
   return (
-    <table className='flex-1 w-full border border-gray-300 border-b-0'>
+    <table className='flex-1 w-full border border-gray-300 border-b-0 table-fixed'>
       <thead>
         <tr className='border-b border-gray-300 text-gray-500 font-semibold'>
-          <TableHeaderCol title='First Name' />
-          <TableHeaderCol title='Last Name' />
-          <TableHeaderCol title='Position' />
+          {sorting?.map((item, index) => (
+            <th>
+              <TableHeaderCol key={index} {...item} />
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
