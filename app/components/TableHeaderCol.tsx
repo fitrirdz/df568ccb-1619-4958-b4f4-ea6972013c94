@@ -2,13 +2,15 @@
 import Image from 'next/image';
 import React from 'react';
 import ArrowIcon from '@/public/icons/up-arrow.png';
-import { Sorting, useEmployee } from '../context/Employee';
+import { useEmployee } from '../context/Employee';
+import { Sorting } from '../interfaces';
 
 const TableHeaderCol = ({ id, name, isActive, type }: Sorting) => {
   const { handleSorting } = useEmployee();
 
   return (
     <button
+      type='button'
       onClick={() => handleSorting({ id, name, isActive, type })}
       className='w-full p-4 hover:bg-gray-100 hover:cursor-pointer hover:text-black flex items-center gap-2'
     >

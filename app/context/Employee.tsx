@@ -1,21 +1,6 @@
 'use client';
 import React, { createContext, useState, ReactNode, useContext } from 'react';
-
-interface Employee {
-  firstName: string;
-  lastName: string;
-  position: string;
-  phone: string;
-  email: string;
-  [key: string]: string;
-}
-
-export interface Sorting {
-  id: string;
-  name: string;
-  type: string;
-  isActive: boolean;
-}
+import { Employee, Sorting } from '../interfaces';
 
 interface EmployeeContextType {
   employee: Employee[];

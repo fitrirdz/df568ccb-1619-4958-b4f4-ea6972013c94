@@ -1,34 +1,146 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import TableHeaderCol from './TableHeaderCol';
 import { useEmployee } from '../context/Employee';
+import TableInputCol from './TableInputCol';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Employee } from '../interfaces';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../utils/validationSchema';
+import PlusIcon from '@/public/icons/plus.png';
+import SaveIcon from '@/public/icons/tech.png';
+import UndoIcon from '@/public/icons/undo.png';
+import ErrorMessage from './ErrorMessage';
 
 const Table = () => {
   const { sorting, employee } = useEmployee();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<{ employees: Employee[] }>({
+    resolver: yupResolver(schema),
+    defaultValues: { employees: [] },
+  });
+
+  const onSubmit: SubmitHandler<{ employees: Employee[] }> = (data) => {
+    console.log('submit: ', data);
+  };
+
+  useEffect(() => {
+    setValue('employees', employee);
+  }, [employee]);
 
   return (
-    <table className='flex-1 w-full border border-gray-300 border-b-0 table-fixed'>
-      <thead>
-        <tr className='border-b border-gray-300 text-gray-500 font-semibold'>
-          {sorting?.map((item, index) => (
-            <th>
-              <TableHeaderCol key={index} {...item} />
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {employee?.map((item, index) => (
-          <tr key={index} className='border-b border-gray-300 text-gray-700'>
-            <td className='p-4'>{item.firstName}</td>
-            <td className='p-4'>{item.lastName}</td>
-            <td className='p-4'>{item.position}</td>
-            <td className='p-4'>{item.phone}</td>
-            <td className='p-4'>{item.email}</td>
+    <form onSubmit={handleSubmit(onSubmit)} className='flex-1 w-full'>
+      <div className='flex w-full justify-end p-6 gap-6'>
+        <button type='button'>
+          <Image
+            src={PlusIcon}
+            alt='arrow'
+            width={20}
+            height={20}
+            className='grayscale'
+          />
+        </button>
+        <button type='submit'>
+          <Image
+            src={SaveIcon}
+            alt='arrow'
+            width={20}
+            height={20}
+            className='grayscale'
+          />
+        </button>
+        <button type='button'>
+          <Image
+            src={UndoIcon}
+            alt='arrow'
+            width={20}
+            height={20}
+            className='grayscale'
+          />
+        </button>
+      </div>
+      <table className='flex-1 w-full border border-gray-300 border-b-0 table-fixed'>
+        <thead>
+          <tr className='border-b border-gray-300 text-gray-500 font-semibold'>
+            {sorting?.map((item, index) => (
+              <th key={index}>
+                <TableHeaderCol {...item} />
+              </th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {employee?.map((item, index) => (
+            <tr key={index} className='border-b border-gray-300 text-gray-700'>
+              <td className='relative'>
+                <TableInputCol
+                  id={`employees.${index}.firstName`}
+                  value={item.firstName}
+                  register={register}
+                />
+                {errors.employees?.[index]?.firstName?.message && (
+                  <ErrorMessage
+                    message={errors.employees[index].firstName.message}
+                  />
+                )}
+              </td>
+              <td className='relative'>
+                <TableInputCol
+                  id={`employees.${index}.lastName`}
+                  value={item.lastName}
+                  register={register}
+                />
+                {errors.employees?.[index]?.lastName?.message && (
+                  <ErrorMessage
+                    message={errors.employees[index].lastName.message}
+                  />
+                )}
+              </td>
+              <td className='relative'>
+                <TableInputCol
+                  id={`employees.${index}.position`}
+                  value={item.position}
+                  register={register}
+                />
+                {errors.employees?.[index]?.position?.message && (
+                  <ErrorMessage
+                    message={errors.employees[index].position.message}
+                  />
+                )}
+              </td>
+              <td className='relative'>
+                <TableInputCol
+                  id={`employees.${index}.phone`}
+                  value={item.phone}
+                  register={register}
+                />
+                {errors.employees?.[index]?.phone?.message && (
+                  <ErrorMessage
+                    message={errors.employees[index].phone.message}
+                  />
+                )}
+              </td>
+              <td className='relative'>
+                <TableInputCol
+                  id={`employees.${index}.email`}
+                  value={item.email}
+                  register={register}
+                />
+                {errors.employees?.[index]?.email?.message && (
+                  <ErrorMessage
+                    message={errors.employees[index].email.message}
+                  />
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </form>
   );
 };
 
