@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { Employee } from '../interfaces';
 
@@ -13,12 +13,29 @@ const TableInputCol = ({
   register: UseFormRegister<{ employees: Employee[] }>;
   disabled?: boolean;
 }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleDoubleClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false); // Stop editing when the input loses focus
+  };
+
   return (
-    <input
-      className='p-4 w-full truncate focus:border-b-2 focus:border-blue-400'
-      type='text'
-      {...register(id)}
-    />
+    <div onClick={handleDoubleClick}>
+      {isEditing ? (
+        <input
+          className='p-4 w-full truncate border-b-2 border-blue-400'
+          type='text'
+          {...register(id)}
+          onBlur={handleBlur}
+        />
+      ) : (
+        <p className='p-4 w-full truncate'>{value}</p>
+      )}
+    </div>
   );
 };
 
