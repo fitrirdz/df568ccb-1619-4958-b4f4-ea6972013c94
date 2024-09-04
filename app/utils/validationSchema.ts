@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
-const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+const phoneRegex =
+  /^(\+?1\s?)?(\([0-9]{3}\)|[0-9]{3})[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const schema = Yup.object({

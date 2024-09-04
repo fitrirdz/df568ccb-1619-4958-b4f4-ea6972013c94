@@ -13,7 +13,7 @@ import UndoIcon from '@/public/icons/undo.png';
 import ErrorMessage from './ErrorMessage';
 
 const Table = () => {
-  const { sorting, employee } = useEmployee();
+  const { sorting, employee, setEmployee } = useEmployee();
   const {
     register,
     handleSubmit,
@@ -24,8 +24,8 @@ const Table = () => {
     defaultValues: { employees: [] },
   });
 
-  const onSubmit: SubmitHandler<{ employees: Employee[] }> = (data) => {
-    console.log('submit: ', data);
+  const onSubmit: SubmitHandler<{ employees: Employee[] }> = (data: any) => {
+    setEmployee(data?.employees || []);
   };
 
   useEffect(() => {
@@ -81,10 +81,11 @@ const Table = () => {
                   id={`employees.${index}.firstName`}
                   value={item.firstName}
                   register={register}
+                  setValue={setValue}
                 />
                 {errors.employees?.[index]?.firstName?.message && (
                   <ErrorMessage
-                    message={errors.employees[index].firstName.message}
+                    message={errors?.employees?.[index]?.firstName?.message}
                   />
                 )}
               </td>
@@ -93,10 +94,11 @@ const Table = () => {
                   id={`employees.${index}.lastName`}
                   value={item.lastName}
                   register={register}
+                  setValue={setValue}
                 />
                 {errors.employees?.[index]?.lastName?.message && (
                   <ErrorMessage
-                    message={errors.employees[index].lastName.message}
+                    message={errors?.employees?.[index]?.lastName?.message}
                   />
                 )}
               </td>
@@ -105,10 +107,11 @@ const Table = () => {
                   id={`employees.${index}.position`}
                   value={item.position}
                   register={register}
+                  setValue={setValue}
                 />
                 {errors.employees?.[index]?.position?.message && (
                   <ErrorMessage
-                    message={errors.employees[index].position.message}
+                    message={errors?.employees?.[index]?.position?.message}
                   />
                 )}
               </td>
@@ -117,10 +120,11 @@ const Table = () => {
                   id={`employees.${index}.phone`}
                   value={item.phone}
                   register={register}
+                  setValue={setValue}
                 />
                 {errors.employees?.[index]?.phone?.message && (
                   <ErrorMessage
-                    message={errors.employees[index].phone.message}
+                    message={errors?.employees?.[index]?.phone?.message}
                   />
                 )}
               </td>
@@ -129,10 +133,11 @@ const Table = () => {
                   id={`employees.${index}.email`}
                   value={item.email}
                   register={register}
+                  setValue={setValue}
                 />
                 {errors.employees?.[index]?.email?.message && (
                   <ErrorMessage
-                    message={errors.employees[index].email.message}
+                    message={errors?.employees?.[index]?.email?.message}
                   />
                 )}
               </td>
